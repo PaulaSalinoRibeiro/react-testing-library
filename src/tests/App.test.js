@@ -1,8 +1,8 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../helps/renderWithRouter';
-import userEvent from '@testing-library/user-event';
 
 describe('App component test', () => {
   it('should have links navigation', () => {
@@ -19,5 +19,11 @@ describe('App component test', () => {
     const homeLink = screen.getByRole('link', { name: /home/i });
     userEvent.click(homeLink);
     expect(history.location.pathname).toBe('/');
+  });
+  it('should have redirect to path="/about" whan About link is clicked', () => {
+    const { history } = renderWithRouter(<App />);
+    const aboutLink = screen.getByRole('link', { name: /about/i });
+    userEvent.click(aboutLink);
+    expect(history.location.pathname).toBe('/about');
   });
 });
