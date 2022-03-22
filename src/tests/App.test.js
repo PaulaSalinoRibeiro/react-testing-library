@@ -32,4 +32,10 @@ describe('App component test', () => {
     userEvent.click(favoriteLink);
     expect(history.location.pathname).toBe('/favorites');
   });
+  it('should have redirect when url path="/notfound" to NotFound page', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/test');
+    const notfound = screen.getByRole('heading', { level: 2 });
+    expect(notfound).toBeDefined();
+  });
 });
