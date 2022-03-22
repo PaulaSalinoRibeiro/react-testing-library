@@ -20,10 +20,16 @@ describe('App component test', () => {
     userEvent.click(homeLink);
     expect(history.location.pathname).toBe('/');
   });
-  it('should have redirect to path="/about" whan About link is clicked', () => {
+  it('should have redirect to path="/about" when About link is clicked', () => {
     const { history } = renderWithRouter(<App />);
     const aboutLink = screen.getByRole('link', { name: /about/i });
     userEvent.click(aboutLink);
     expect(history.location.pathname).toBe('/about');
+  });
+  it('should have redirect to path="/favorites" when Favorite link is clicked', () => {
+    const { history } = renderWithRouter(<App />);
+    const favoriteLink = screen.getByRole('link', { name: /favorite pokémons/i });
+    userEvent.click(favoriteLink);
+    expect(history.location.pathname).toBe('/favorites');
   });
 });
