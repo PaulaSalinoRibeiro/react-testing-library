@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { getAllByTestId, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../helps/renderWithRouter';
 import App from '../App';
@@ -37,14 +37,19 @@ describe('Pokedex component test', () => {
   it('should have filter buttons', () => {
     renderWithRouter(<App />);
 
+    const buttons = screen.getAllByTestId('pokemon-type-button');
+    //console.log(buttons);
+
     const pokemons = ['Pikachu', 'Charmander', 'Caterpie', 'Ekans', 'Alakazam',
       'Snorlax', 'Dragonair'];
 
     const types = ['Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon'];
 
     for (let i = 0; i < pokemons.length; i += 1) {
-      userEvent.click(screen.getByRole('button', { name: types[i] }));
-      expect(screen.getByText(pokemons[i])).toBeInTheDocument();
+      userEvent.click(buttons[i]);
+      expect(screen.getByTestId('pokemon-name')).toHaveTextContent(pokemons[i]);
+      expect(screen.getByTestId('pokemon-type')).toHaveTextContent(types[i]);
+      expect(buttons[i]).toHaveTextContent(types[i]);
     }
 
     const allBtn = screen.getByRole('button', { name: 'All' });
@@ -56,5 +61,16 @@ describe('Pokedex component test', () => {
 
   it('verify if have reset filter button', () => {
     renderWithRouter(<App />);
+    const allBtn = screen.getByRole('button', { name: /all/i });
+    expect(allBtn).not.toBeDisabled();
+
+    const fireBtn = screen.getByRole('button', { name: /fire/i });
+
+    userEvent.click(fireBtn);
+    const pokemon = screen.getByText(/Charmander/i);
+    expect(pokemon).toHaveTextContent('Charmander');
+
+    userEvent.click(allBtn);
+    expect(pokemon).toHaveTextContent('Pikachu');
   });
 });
