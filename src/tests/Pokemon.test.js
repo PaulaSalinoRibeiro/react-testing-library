@@ -10,7 +10,7 @@ describe('Pokemon component test', () => {
     const name = screen.getByTestId('pokemon-name');
     const type = screen.getByTestId('pokemon-type');
     const weight = screen.getByTestId('pokemon-weight');
-    const img = screen.getByRole('img');
+    const img = screen.getByAltText('Pikachu sprite');
     const src = 'https://cdn2.bulbagarden.net/upload/b/b2/Spr_5b_025_m.png';
 
     expect(name).toHaveTextContent('Pikachu');
@@ -25,5 +25,16 @@ describe('Pokemon component test', () => {
     expect(detailsLink).toBeInTheDocument();
     userEvent.click(detailsLink);
     expect(history.location.pathname).toEqual('/pokemons/25');
+  });
+
+  it('verify if have star icon for favorite pokemon', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/pokemons/25');
+    const checked = screen.getByLabelText(/pokémon favoritado/i);
+    userEvent.click(checked);
+    const star = screen.getByAltText('Pikachu is marked as favorite');
+    expect(star.src).toEqual('http://localhost/star-icon.svg');
+
+    screen.logTestingPlaygroundURL();
   });
 });
