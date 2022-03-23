@@ -14,6 +14,7 @@ describe('FavoritePokemons component test', () => {
 
     screen.logTestingPlaygroundURL();
   });
+
   it('verify favoritescards', () => {
     const { history } = renderWithRouter(<App />);
     const details = screen.getByRole('link', { name: /more details/i });

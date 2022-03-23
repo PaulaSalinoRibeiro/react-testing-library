@@ -15,6 +15,7 @@ describe('NotFound component test', () => {
 
     screen.logTestingPlaygroundURL();
   });
+
   it('verify have image in the page', () => {
     const src = 'https://media.giphy.com/media/kNSeTs31XBZ3G/giphy.gif';
     const image = screen.getByRole('img',

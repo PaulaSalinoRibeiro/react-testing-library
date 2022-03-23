@@ -55,23 +55,6 @@ describe('Pokedex component test', () => {
   });
 
   it('verify if have reset filter button', () => {
-    /*     renderWithRouter(<App />);
-    const allBtn = screen.getByRole('button', { name: /all/i });
-    expect(allBtn).not.toBeDisabled();
-
-    const nextButton = screen.getByRole('button', { name: /próximo pokémon/i });
-    userEvent.click(nextButton);
-    const nextPokemon = screen.getByText(/charmander/i);
-    expect(nextPokemon).toBeInTheDocument();
-
-    const psychicBtn = screen.getByRole('button', { name: /psychic/i });
-    userEvent.click(psychicBtn);
-    const pokemonPsychic1 = screen.getByText(/alakazam/i);
-    expect(pokemonPsychic1).toBeInTheDocument();
-
-    userEvent.click(allBtn);
-    expect(allBtn).not.toBeDisabled();
-    const firstPokemon = screen.getByText(/pikachu/i);
-    expect(firstPokemon).toBeInTheDocument(); */
+    renderWithRouter(<App />);
   });
 });
