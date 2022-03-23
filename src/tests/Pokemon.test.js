@@ -18,4 +18,12 @@ describe('Pokemon component test', () => {
     expect(weight).toHaveTextContent('Average weight: 6.0 kg');
     expect(img.src).toEqual(src);
   });
+
+  it('verify if exist link', () => {
+    const { history } = renderWithRouter(<App />);
+    const detailsLink = screen.getByRole('link', { name: /more details/i });
+    expect(detailsLink).toBeInTheDocument();
+    userEvent.click(detailsLink);
+    expect(history.location.pathname).toEqual('/pokemons/25');
+  });
 });
