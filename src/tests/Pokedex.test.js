@@ -16,11 +16,16 @@ describe('Pokedex component test', () => {
     const nextButton = screen.getByRole('button', { name: /próximo pokémon/i });
     expect(nextButton).toHaveTextContent(/próximo pokémon/i);
 
+    const pokemons = ['Charmander', 'Caterpie', 'Ekans', 'Alakazam',
+      'Mew', 'Rapidash', 'Snorlax', 'Dragonair'];
 
-
-
-
-
+    for (let i = 0; i < pokemons.length; i += 1) {
+      userEvent.click(nextButton);
+      expect(screen.getByText(pokemons[i])).toBeInTheDocument();
+    }
+    userEvent.click(nextButton);
+    const firstPokemon = screen.getByText('Pikachu');
+    expect(firstPokemon).toBeInTheDocument();
   });
 
   it('verify if just one pokemom is render', () => {
@@ -31,11 +36,26 @@ describe('Pokedex component test', () => {
 
   it('should have filter buttons', () => {
     renderWithRouter(<App />);
-    expect(allBtn).not.toBeDisabled();
+
+    const pokemons = ['Pikachu', 'Charmander', 'Caterpie', 'Ekans', 'Alakazam',
+      'Snorlax', 'Dragonair'];
+
+    const types = ['Electric', 'Fire', 'Bug', 'Poison', 'Psychic', 'Normal', 'Dragon'];
+
+    for (let i = 0; i < pokemons.length; i += 1) {
+      userEvent.click(screen.getByRole('button', { name: types[i] }));
+      expect(screen.getByText(pokemons[i])).toBeInTheDocument();
+    }
+
+    const allBtn = screen.getByRole('button', { name: 'All' });
+    expect(allBtn).toBeInTheDocument();
+    userEvent.click(allBtn);
+    const firstPokemon = screen.getByText('Pikachu');
+    expect(firstPokemon).toBeInTheDocument();
   });
 
   it('verify if have reset filter button', () => {
-    renderWithRouter(<App />);
+    /*     renderWithRouter(<App />);
     const allBtn = screen.getByRole('button', { name: /all/i });
     expect(allBtn).not.toBeDisabled();
 
@@ -52,6 +72,6 @@ describe('Pokedex component test', () => {
     userEvent.click(allBtn);
     expect(allBtn).not.toBeDisabled();
     const firstPokemon = screen.getByText(/pikachu/i);
-    expect(firstPokemon).toBeInTheDocument();
+    expect(firstPokemon).toBeInTheDocument(); */
   });
 });
