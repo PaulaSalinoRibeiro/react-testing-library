@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllByTestId, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../helps/renderWithRouter';
 import App from '../App';
@@ -38,7 +38,7 @@ describe('Pokedex component test', () => {
     renderWithRouter(<App />);
 
     const buttons = screen.getAllByTestId('pokemon-type-button');
-    //console.log(buttons);
+    // console.log(buttons);
 
     const pokemons = ['Pikachu', 'Charmander', 'Caterpie', 'Ekans', 'Alakazam',
       'Snorlax', 'Dragonair'];
